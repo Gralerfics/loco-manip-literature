@@ -1,0 +1,18 @@
+.site-header{background:#fff;border-bottom:1px solid #d8e2e5;padding:0 24px}
+.site-header .site-nav{display:flex;align-items:center;gap:24px;max-width:1872px;min-height:58px;margin:0 auto;font:14px/1.5 system-ui,sans-serif}
+.site-header .site-nav a{color:#60727a;text-decoration:none;padding:18px 0;border-bottom:2px solid transparent}
+.site-header .site-nav a:hover{color:#245f78}
+.site-header .site-nav .current{color:#182d36;font-weight:650;border-bottom-color:#2b6874}
+.site-header .site-language{margin-left:auto}
+.paper-card{min-width:0;overflow-wrap:anywhere}
+.graph-shell,.graph-wrap,.kg-canvas,.kg-graph svg{user-select:none;-webkit-user-select:none}
+body.graph-dragging,body.graph-dragging *{user-select:none!important;-webkit-user-select:none!important}
+@media(max-width:600px){.site-header{padding:0 15px}.site-header .site-nav{gap:20px}}
+@media(max-width:600px){
+  .toolbar,.tabs,.kg-header,.kg-filters,.status{flex-wrap:wrap;min-width:0}
+  .field,.field input,.field select{min-width:0;max-width:100%}
+  .field.search{width:100%}.field.search input{width:100%}
+  .tabs button{padding:5px 8px;font-size:13px}
+  .legend,.kg-legend{overflow-wrap:anywhere}
+  .search{max-width:100%}
+}
