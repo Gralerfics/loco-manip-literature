@@ -1,4 +1,4 @@
-"""Check the public publication boundary without reading local-only files."""
+﻿"""Check the public publication boundary without reading local-only files."""
 from pathlib import Path
 import json
 import re
@@ -39,7 +39,8 @@ def audit():
                     errors.append(f'{path.relative_to(ROOT)}: missing link {href}')
     for name in PAGES:
         data = json.loads(DATA.search((ROOT / name).read_text(encoding='utf-8'))[1])
-        assert len(data['papers']) == 114, name
+        expected = 143 if name.startswith('literature-map') else 114
+        assert len(data['papers']) == expected, (name, len(data['papers']))
         assert all('importance' not in p and 'featured' not in p for p in data['papers']), name
         if 'concepts' in data:
             ids = {c['id'] for c in data['concepts']}
@@ -53,7 +54,7 @@ def audit():
                 assert set(paper['concepts'] + paper['mechanismConcepts']) <= ids, (name, paper['id'])
     if errors:
         raise SystemExit('\n'.join(errors))
-    print('Public audit passed: 114 papers, 44 concepts; no local-only links.')
+    print('Public audit passed: 143 papers, 44 concepts; no local-only links.')
 
 if __name__ == '__main__':
     audit()
