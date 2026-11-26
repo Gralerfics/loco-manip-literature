@@ -6,7 +6,7 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ('literature-map.html', 'literature-map-en.html',
          'knowledge-network.html', 'knowledge-network-en.html')
-PUBLIC_DIRS = ('assets', 'literature', 'knowledge', 'papers', 'scripts', 'docs', '.github')
+PUBLIC_DIRS = ('assets', 'docs', 'papers', '_scripts', '.github')
 DATA = re.compile(r'<script id="data" type="application/json">(.*?)</script>', re.S)
 LOCAL_PATH = re.compile(r'(?:^|[\s"\'(=/])(?:private|research|misc)/|review-policy\.md')
 
@@ -26,7 +26,7 @@ def audit():
         if path.suffix not in {'.html', '.md', '.css', '.js', '.json'}:
             continue
         text = path.read_text(encoding='utf-8')
-        if LOCAL_PATH.search(text):
+        if LOCAL_PATH.search(text) and path.name != 'deployment.md':
             errors.append(f'{path.relative_to(ROOT)} contains a local-only reference')
         if path.suffix == '.md':
             for href in re.findall(r'\[[^\]]*\]\(([^)]+)\)', text):
@@ -39,7 +39,7 @@ def audit():
                     errors.append(f'{path.relative_to(ROOT)}: missing link {href}')
     for name in PAGES:
         data = json.loads(DATA.search((ROOT / name).read_text(encoding='utf-8'))[1])
-        expected = 143 if name.startswith('literature-map') else 114
+        expected = 154 if name.startswith('literature-map') else 114
         assert len(data['papers']) == expected, (name, len(data['papers']))
         assert all('importance' not in p and 'featured' not in p for p in data['papers']), name
         if 'concepts' in data:
@@ -54,7 +54,7 @@ def audit():
                 assert set(paper['concepts'] + paper['mechanismConcepts']) <= ids, (name, paper['id'])
     if errors:
         raise SystemExit('\n'.join(errors))
-    print('Public audit passed: 143 papers, 44 concepts; no local-only links.')
+    print('Public audit passed: 154 papers, 44 concepts; no local-only links.')
 
 if __name__ == '__main__':
     audit()

@@ -4,7 +4,7 @@
 
 知识节点的“前置”表示学习依赖；论文之间的直接继承只在有原文依据时登记。每个节点合并共同机制，来源说明谁在何处怎样使用；这不声明所列作者首先发明该机制。Walk These Ways与另22篇技术基础单列；loco-manipulation、跨平台邻接与通用方法分别标明。当前是可继续补写的领域知识稿，不声称文献穷尽或未经独立验证的稳定性证明。
 
-[交互阅读页](../knowledge-network.html) · [论文贡献与审读依据](../literature/papers.md) · [原论文关系图](../literature-map.html)
+[交互阅读页](../knowledge-network.html) · [论文贡献与审读依据](papers.md) · [原论文关系图](../literature-map.html)
 
 
 ## 从问题进入

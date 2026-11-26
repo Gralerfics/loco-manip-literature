@@ -7,13 +7,13 @@ import argparse
 from audit_public import audit
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / 'dist'
+OUT = ROOT / '_dist'
 
 def build(repository='Gralerfics/loco-manip-literature', ref='main'):
     audit()
     if OUT.exists():
         # This fixed, resolved directory is the only disposable build output.
-        assert OUT.resolve() == ROOT.resolve() / 'dist'
+        assert OUT.resolve() == ROOT.resolve() / '_dist'
         shutil.rmtree(OUT)
     OUT.mkdir(exist_ok=True)
     # Read the canonical paper index before packaging either language.
@@ -24,7 +24,7 @@ def build(repository='Gralerfics/loco-manip-literature', ref='main'):
         text = (ROOT / name).read_text(encoding='utf-8')
         for pdf, source in pdfs.items():
             text = text.replace(pdf, source)
-        text = re.sub(r'(?<![\w/])((?:literature|knowledge)/[\w/-]+\.md|README\.md)',
+        text = re.sub(r'(?<![\w/])(docs/[\w/-]+\.md|README\.md)',
                       lambda m: f'https://github.com/{repository}/blob/{ref}/{m[1]}', text)
         text = text.replace('本地 PDF', 'PDF').replace('Local PDF', 'PDF')
         (OUT / name).write_text(text, encoding='utf-8')

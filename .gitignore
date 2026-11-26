@@ -1,4 +1,4 @@
-dist/
+﻿_dist/
 /private/
 __pycache__/
 *.py[cod]

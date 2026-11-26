@@ -22,17 +22,15 @@ jobs:
           filter: blob:none
           sparse-checkout: |
             assets
-            scripts
-            literature
-            knowledge
+            _scripts
             docs
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - uses: actions/configure-pages@v6
-      - run: python scripts/build_site.py --repository "$GITHUB_REPOSITORY" --ref "$GITHUB_SHA"
+      - run: python _scripts/build_site.py --repository "$GITHUB_REPOSITORY" --ref "$GITHUB_SHA"
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: dist
+          path: _dist
       - uses: actions/deploy-pages@v5
         id: deployment
